@@ -19,19 +19,19 @@ def resource_path(relative_path):
     return os.path.join(base_path, relative_path)
 
 
-FORM_CLASS, _ = loadUiType(path.join(resource_path("main.ui")))
+FORM_CLASS, _ = loadUiType(path.join(resource_path("main_new.ui")))
 
 
 class Main(QMainWindow, FORM_CLASS):
     def __init__(self, parent=None):
         super(Main, self).__init__(parent)
         QMainWindow.__init__(self)
-        QMainWindow.setFixedSize(self, 641, 463)
         self.setupUi(self)
         self.buttons()
 
     def buttons(self):
         self.load_btn.clicked.connect(self.open_file)
+        self.validation_btn.setEnabled(False)
         self.validation_btn.clicked.connect(self.validate_data)
 
     def open_file(self):
@@ -41,6 +41,7 @@ class Main(QMainWindow, FORM_CLASS):
         model = PandasModel(df)
         self.table.setModel(model)
         self.termocouple_number.setText(str(len(df.columns)-1))
+        self.validation_btn.setEnabled(True)
 
     def validate_data(self):
         sterile_hold_min_temp_list = []

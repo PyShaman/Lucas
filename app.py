@@ -1,9 +1,11 @@
 import os
 import pandas as pd
+import pyqtgraph as pg
 import sys
 from datetime import datetime, date, timedelta
 from model import PandasModel
 from os import path
+from pyqtgraph import PlotWidget, plot
 from PyQt5 import QtCore
 from PyQt5 import QtWidgets
 from PyQt5.QtCore import *
@@ -33,17 +35,23 @@ class Main(QMainWindow, FORM_CLASS):
         self.load_btn.clicked.connect(self.open_file)
         self.validation_btn.setEnabled(False)
         self.validation_btn.clicked.connect(self.validate_data)
+        self.calculate_btn.setEnabled(False)
+        self.calculate_btn.clicked.connect(self.calculate_data)
 
     def open_file(self):
         global df
-        file_name, _ = QtWidgets.QFileDialog.getOpenFileName(self, "Open File", "", "Excel (*.xlsx)")
-        df = pd.read_excel(file_name)
-        model = PandasModel(df)
-        self.table.setModel(model)
-        self.termocouple_number.setText(str(len(df.columns)-1))
-        self.validation_btn.setEnabled(True)
+        try:
+            file_name, _ = QtWidgets.QFileDialog.getOpenFileName(self, "Open File", "", "Excel (*.xlsx)")
+            df = pd.read_excel(file_name)
+            model = PandasModel(df)
+            self.table.setModel(model)
+            self.termocouple_number.setText(str(len(df.columns)-1))
+            self.validation_btn.setEnabled(True)
+        except FileNotFoundError:
+            pass
 
     def validate_data(self):
+        global new_df
         sterile_hold_min_temp_list = []
         sterile_hold_elapsed_time = {}
         for column in range(1, len(df.columns)):
@@ -80,6 +88,18 @@ class Main(QMainWindow, FORM_CLASS):
         else:
             self.time_delta.setStyleSheet('font: 75 16pt "Century Gothic";color: rgb(255, 0, 0);')
         self.time_delta.setText(str(delta_time))
+        self.calculate_btn.setEnabled(True)
+
+    def calculate_data(self):
+        x_axis = new_df['TIME'].index.tolist()
+        y_axis = new_df[f'Temp_1'].values.tolist()
+        self.graphics_view.addPlot(title = '"F zero" Post-Calculation').plot(x_axis, y_axis)
+        # self.data_plot.plot(x_axis, y_axis)
+        # self.graphWidget = pg.PlotWidget()
+        # self.graph(self.graphWidget)
+        # self.graphWidget.plot(x_axis, y_axis)
+        # for column in range(1, len(new_df.columns)):
+        #     y_axis = new_df[f'Temp_{column}'].values.to_list()
 
 
 def main():

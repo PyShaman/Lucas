@@ -558,6 +558,14 @@ QAbstractSpinBox {
        <attribute name="title">
         <string>&quot;F zero&quot; Post-Calculation</string>
        </attribute>
+       <layout class="QVBoxLayout" name="verticalLayout_5">
+        <item>
+         <widget class="QGraphicsView" name="graph"/>
+        </item>
+        <item>
+         <widget class="QListWidget" name="pc_list"/>
+        </item>
+       </layout>
       </widget>
      </widget>
     </item>
@@ -597,6 +605,16 @@ QAbstractSpinBox {
        </property>
        <property name="text">
         <string>Validate</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="calculate_btn">
+       <property name="styleSheet">
+        <string notr="true">font: 14pt &quot;Century Gothic&quot;;</string>
+       </property>
+       <property name="text">
+        <string>Post-Calculate</string>
        </property>
       </widget>
      </item>

@@ -1,0 +1,10 @@
+1. W firmie jest suite 1, suite 2, suite 12 (3&8), suite 11, suite 23, sterylizator wolnostojacy = 6
+2. MPR - master process record,
+
+3. Jakie dane sa stale?
+a) min sterile hold = 15m30s  z MPR
+b) temperatura jest stala dla wszystkich sterylizatorow w przedziale 121.0 - 123.4
+c) dokladny format plikow excel
+d) dokladna ilosc termocouple (suite moze miec 12, ale jedna moze wypasc, bo jest tam papier lub fatalaszek)
+
+michal.bek@gmail.com

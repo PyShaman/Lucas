@@ -21,7 +21,7 @@ def resource_path(relative_path):
     return os.path.join(base_path, relative_path)
 
 
-FORM_CLASS, _ = loadUiType(path.join(resource_path("main_new.ui")))
+FORM_CLASS, _ = loadUiType(path.join(resource_path("main.ui")))
 
 
 class Main(QMainWindow, FORM_CLASS):
@@ -45,8 +45,9 @@ class Main(QMainWindow, FORM_CLASS):
             df = pd.read_excel(file_name)
             model = PandasModel(df)
             self.table.setModel(model)
-            self.termocouple_number.setText(str(len(df.columns)-1))
+            self.termocouple_number.setText(str(len(df.columns) - 1))
             self.validation_btn.setEnabled(True)
+            self.calculate_btn.setEnabled(False)
         except FileNotFoundError:
             pass
 
@@ -82,7 +83,8 @@ class Main(QMainWindow, FORM_CLASS):
             self.validation_label.setText('Sterile Hold invalid!')
         self.start_time.setText(str(new_df.iloc[0]['TIME']))
         self.stop_time.setText(str(new_df.iloc[186]['TIME']))
-        delta_time = datetime.combine(date.today(), new_df.iloc[186]['TIME']) - datetime.combine(date.today(), new_df.iloc[0]['TIME'])
+        delta_time = datetime.combine(date.today(), new_df.iloc[186]['TIME']) - datetime.combine(date.today(),
+                                                                                                 new_df.iloc[0]['TIME'])
         if delta_time == timedelta(minutes=15, seconds=30):
             self.time_delta.setStyleSheet('font: 75 16pt "Century Gothic";color: rgb(20, 125, 0);')
         else:
@@ -91,15 +93,18 @@ class Main(QMainWindow, FORM_CLASS):
         self.calculate_btn.setEnabled(True)
 
     def calculate_data(self):
+        self.graphics_view.clear()
+        colors = ['#FF0000', '#FF8000', '#FFFF00', '#80FF00', '#00FF00', '#00FF80', '#00FFFF', '#0080FF', '#0000FF',
+                  '#7F00FF', '#FF00FF', '#FF007F']
         x_axis = new_df['TIME'].index.tolist()
-        y_axis = new_df[f'Temp_1'].values.tolist()
-        self.graphics_view.addPlot(title = '"F zero" Post-Calculation').plot(x_axis, y_axis)
-        # self.data_plot.plot(x_axis, y_axis)
-        # self.graphWidget = pg.PlotWidget()
-        # self.graph(self.graphWidget)
-        # self.graphWidget.plot(x_axis, y_axis)
-        # for column in range(1, len(new_df.columns)):
-        #     y_axis = new_df[f'Temp_{column}'].values.to_list()
+        self.graphics_view.getPlotItem().setLabel('bottom', "Time index")
+        self.graphics_view.getPlotItem().setLabel('left', "Temperature")
+        self.graphics_view.getPlotItem().addLegend()
+        self.graphics_view.getPlotItem().addLine(y=121.0, pen=pg.mkPen(style=QtCore.Qt.DotLine, color='#FFFFFF'))
+        self.graphics_view.getPlotItem().addLine(y=123.0, pen=pg.mkPen(style=QtCore.Qt.DotLine, color='#FFFFFF'))
+        for column in range(1, len(df.columns)):
+            y_axis = new_df[f'Temp_{column}'].values.tolist()
+            self.graphics_view.plot(x_axis, y_axis, pen=pg.mkPen(color=colors[column-1]), name=f'T{column}')
 
 
 def main():

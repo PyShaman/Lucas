@@ -6,12 +6,12 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>833</width>
-    <height>551</height>
+    <width>1212</width>
+    <height>666</height>
    </rect>
   </property>
   <property name="windowTitle">
-   <string>MainWindow</string>
+   <string>DEMO</string>
   </property>
   <property name="styleSheet">
    <string notr="true">QToolTip
@@ -560,10 +560,14 @@ QAbstractSpinBox {
        </attribute>
        <layout class="QVBoxLayout" name="verticalLayout_5">
         <item>
-         <widget class="QGraphicsView" name="graph"/>
+         <widget class="PlotWidget" name="graphics_view"/>
         </item>
         <item>
-         <widget class="QListWidget" name="pc_list"/>
+         <widget class="QListWidget" name="pc_list">
+          <property name="enabled">
+           <bool>true</bool>
+          </property>
+         </widget>
         </item>
        </layout>
       </widget>
@@ -576,7 +580,7 @@ QAbstractSpinBox {
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>833</width>
+     <width>1212</width>
      <height>21</height>
     </rect>
    </property>
@@ -631,7 +635,7 @@ QAbstractSpinBox {
    <property name="minimumSize">
     <size>
      <width>290</width>
-     <height>137</height>
+     <height>141</height>
     </size>
    </property>
    <property name="maximumSize">
@@ -760,6 +764,13 @@ QAbstractSpinBox {
    </widget>
   </widget>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>PlotWidget</class>
+   <extends>QGraphicsView</extends>
+   <header>pyqtgraph</header>
+  </customwidget>
+ </customwidgets>
  <resources/>
  <connections/>
 </ui>

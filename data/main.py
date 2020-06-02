@@ -2,7 +2,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 
 import pandas as pd
 
-from PandasModel import PandasModel
+from model import PandasModel
 
 
 class Widget(QtWidgets.QWidget):

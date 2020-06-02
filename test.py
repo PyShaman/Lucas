@@ -45,11 +45,15 @@
 #     f_list.append(format_time(f0))
 # print(f_list)
 #
-n = int(input("elements: "))
-for cols in range(0, 4):
-    for rows in range(0, 3):
-        print("*", end = " ")
-    print()
+n = int(input(" how many elements: "))
+col = row = 0
+for i in range(n):
+    print("*", end=" ")
+    row += 1
+    if row == 4:
+        row = 0
+        col += 1
+        print()
 
 # n = int(input("Enter the start number: "))
 #

@@ -21,7 +21,7 @@ def resource_path(relative_path):
     return os.path.join(base_path, relative_path)
 
 
-FORM_CLASS, _ = loadUiType(resource_path("main_2.ui"))
+FORM_CLASS, _ = loadUiType(resource_path("main_3.ui"))
 
 
 class Main(QMainWindow, FORM_CLASS):
@@ -37,6 +37,8 @@ class Main(QMainWindow, FORM_CLASS):
         self.validation_btn.clicked.connect(self.validate_data)
         self.calculate_btn.setEnabled(False)
         self.calculate_btn.clicked.connect(self.calculate_data)
+        self.clear_btn.setEnabled(False)
+        self.clear_btn.clicked.connect(self.clear_data)
 
     def open_file(self):
         global df
@@ -59,6 +61,7 @@ class Main(QMainWindow, FORM_CLASS):
 
     def validate_data(self):
         global new_df
+        self.clear_btn.setEnabled(False)
         sterile_hold_min_temp_list = []
         sterile_hold_elapsed_time = {}
         for column in range(1, len(df.columns)):
@@ -99,7 +102,9 @@ class Main(QMainWindow, FORM_CLASS):
         self.calculate_btn.setEnabled(True)
 
     def calculate_data(self):
+        global f_list
         self.graphics_view.clear()
+        self.clear_btn.setEnabled(True)
         colors = ['#FF0000', '#FF8000', '#FFFF00', '#80FF00', '#00FF00', '#00FF80', '#00FFFF', '#0080FF', '#0000FF',
                   '#7F00FF', '#FF00FF', '#FF007F']
         x_axis = new_df['TIME'].index.tolist()
@@ -116,21 +121,38 @@ class Main(QMainWindow, FORM_CLASS):
             f0 = 0
             for row in range(1, len(x_axis)):
                 f0 += 0.08333333 * (10 ** ((new_df.iloc[row][f'Temp_{column}'] - 121.0) / 6.0))
-            f_list.append(self.format_time(f0))
+            f_list.append(f0)
+        col = row = 0
+        self.labels = dict()
+        for n in range(1, len(f_list)+1):
+            self.labels[f"label_{n}"] = QtWidgets.QLabel(self.partial_f0_box)
+            self.labels[f"label_{n}"].setStyleSheet(f'background-color: {colors[n - 1]};color : black;')
+            self.labels[f"label_{n}"].setText(f'[T{n}] F0={self.format_time(f_list[n - 1])}')
+            self.labels[f"label_{n}"].setAlignment(QtCore.Qt.AlignCenter)
+            self.labels[f"label_{n}"].setObjectName(f'label_{n}')
+            self.gridLayout.addWidget(self.labels[f"label_{n}"], col, row, 1, 1)
+            row += 1
+            if row == 4:
+                row = 0
+                col += 1
+        self.T_total.setText(f'F_average = {self.format_time(sum(f_list)/len(f_list))}')
 
-        # for x in range(1, 12, 4):
-        #     for j in range(x, x + 4):
-        #         print("*", end = " ")
-        #     print()
-
-        for i in range(1, len(f_list)+1, 4):
-            for j in range():
-                self.label = QtWidgets.QLabel(self.partial_f0_box)
-                self.label.setStyleSheet(f'background-color: {colors[i]};')
-                self.label.setText(f'[T{i}] F0 = {f_list[i]}')
-                self.gridLayout.addWidget(self.label, 1, i-1, 1, 1)
-
-        print(f_list)
+    def clear_data(self):
+        self.graphics_view.clear()
+        self.validation_btn.setEnabled(False)
+        self.calculate_btn.setEnabled(False)
+        # self.clear_btn.setEnabled(False)
+        print(self.partial_f0_box.children())
+        print(self.gridLayout.itemAt(0))
+        self.gridLayout.itemAt(0).widget().removeWidget()
+        # for n in range(0, len(f_list)):
+        #     print(self.gridLayout.itemAt(n))
+        # self.labels = dict()
+        # for n in range(1, len(f_list) + 1):
+        #     self.gridLayout.removeItem(self.partial_f0_box)
+            # self.gridLayout.removeItem(self.labels[f"label_{n}"])
+            # self.labels[f"label_{n}"].deleteLater()
+        # self.label = None
 
 
 def main():

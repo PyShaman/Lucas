@@ -21,37 +21,53 @@ class Ui_MainWindow(object):
         self.verticalLayout.setObjectName("verticalLayout")
         self.groupBox = QtWidgets.QGroupBox(self.centralwidget)
         self.groupBox.setObjectName("groupBox")
+
         self.gridLayout = QtWidgets.QGridLayout(self.groupBox)
         self.gridLayout.setObjectName("gridLayout")
         self.label = QtWidgets.QLabel(self.groupBox)
-        self.label.setStyleSheet("background-color: rgb(255, 0, 4);")
+        self.label.setStyleSheet(f"background-color: rgb(255, 0, 4);")
         self.label.setAlignment(QtCore.Qt.AlignCenter)
         self.label.setObjectName("label")
 
         self.label_4 = QtWidgets.QLabel(self.groupBox)
-        self.label_4.setStyleSheet("background-color: rgb(255, 188, 140);")
+        self.label_4.setStyleSheet(f"background-color: rgb(255, 188, 140);")
         self.label_4.setAlignment(QtCore.Qt.AlignCenter)
         self.label_4.setObjectName("label_4")
 
         self.label_3 = QtWidgets.QLabel(self.groupBox)
-        self.label_3.setStyleSheet("background-color: rgb(64, 255, 43);")
+        self.label_3.setStyleSheet(f"background-color: rgb(64, 255, 43);")
         self.label_3.setAlignment(QtCore.Qt.AlignCenter)
         self.label_3.setObjectName("label_3")
 
         self.label_2 = QtWidgets.QLabel(self.groupBox)
-        self.label_2.setStyleSheet("background-color: rgb(147, 70, 255);")
+        self.label_2.setStyleSheet(f"background-color: rgb(147, 70, 255);")
         self.label_2.setAlignment(QtCore.Qt.AlignCenter)
         self.label_2.setObjectName("label_2")
 
         self.label_5 = QtWidgets.QLabel(self.groupBox)
-        self.label_5.setStyleSheet("background-color: rgb(255, 245, 220);")
+        self.label_5.setStyleSheet(f"background-color: rgb(255, 245, 220);")
         self.label_5.setAlignment(QtCore.Qt.AlignCenter)
         self.label_5.setObjectName("label_5")
 
         self.label_6 = QtWidgets.QLabel(self.groupBox)
-        self.label_6.setStyleSheet("background-color: rgb(73, 67, 255);")
+        self.label_6.setStyleSheet(f"background-color: rgb(73, 67, 255);")
         self.label_6.setAlignment(QtCore.Qt.AlignCenter)
         self.label_6.setObjectName("label_6")
+
+        self.label_7 = QtWidgets.QLabel(self.groupBox)
+        self.label_7.setStyleSheet(f"background-color: rgb(22, 22, 255);")
+        self.label_7.setAlignment(QtCore.Qt.AlignCenter)
+        self.label_7.setObjectName("label_7")
+
+        self.label_8 = QtWidgets.QLabel(self.groupBox)
+        self.label_8.setStyleSheet(f"background-color: rgb(22, 22, 255);")
+        self.label_8.setAlignment(QtCore.Qt.AlignCenter)
+        self.label_8.setObjectName("label_8")
+
+        self.label_9 = QtWidgets.QLabel(self.groupBox)
+        self.label_9.setStyleSheet(f"background-color: rgb(22, 22, 255);")
+        self.label_9.setAlignment(QtCore.Qt.AlignCenter)
+        self.label_9.setObjectName("label_9")
 
         self.verticalLayout.addWidget(self.groupBox)
         MainWindow.setCentralWidget(self.centralwidget)
@@ -63,12 +79,31 @@ class Ui_MainWindow(object):
         self.statusbar.setObjectName("statusbar")
         MainWindow.setStatusBar(self.statusbar)
 
-        self.gridLayout.addWidget(self.label, 1, 0, 1, 1)
-        self.gridLayout.addWidget(self.label_2, 1, 1, 1, 1)
-        self.gridLayout.addWidget(self.label_3, 1, 2, 1, 1)
-        self.gridLayout.addWidget(self.label_4, 2, 0, 1, 1)
-        self.gridLayout.addWidget(self.label_6, 2, 1, 1, 1)
-        self.gridLayout.addWidget(self.label_5, 3, 0, 1, 1)
+        # widget_list = [[self.label, 1, 0, 1, 1], [self.label_2, 1, 1, 1, 1]]
+
+        self.labels = [self.label, self.label_2, self.label_3, self.label_4, self.label_5, self.label_6, self.label_7, self.label_8, self.label_9]
+        col = row = 0
+        col = row = 0
+        for label in self.labels:
+            self.gridLayout.addWidget(label, col, row, 1, 1)
+            row += 1
+            if row == 4:
+                row = 0
+                col += 1
+
+        for label in self.labels:
+            self.gridLayout.addWidget(label, col, row, 1, 1)
+            row += 1
+            if row == 4:
+                row = 0
+                col += 1
+
+        # self.gridLayout.addWidget(self.label, 1, 0, 1, 1)
+        # self.gridLayout.addWidget(self.label_2, 1, 1, 1, 1)
+        # self.gridLayout.addWidget(self.label_3, 1, 2, 1, 1)
+        # self.gridLayout.addWidget(self.label_4, 2, 0, 1, 1)
+        # self.gridLayout.addWidget(self.label_6, 2, 1, 1, 1)
+        # self.gridLayout.addWidget(self.label_5, 3, 0, 1, 1)
 
         self.retranslateUi(MainWindow)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)

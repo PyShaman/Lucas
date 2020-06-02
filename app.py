@@ -21,7 +21,7 @@ def resource_path(relative_path):
     return os.path.join(base_path, relative_path)
 
 
-FORM_CLASS, _ = loadUiType(path.join(resource_path("main.ui")))
+FORM_CLASS, _ = loadUiType(resource_path("main_2.ui"))
 
 
 class Main(QMainWindow, FORM_CLASS):
@@ -42,7 +42,7 @@ class Main(QMainWindow, FORM_CLASS):
         global df
         try:
             file_name, _ = QtWidgets.QFileDialog.getOpenFileName(self, "Open File", "", "Excel (*.xlsx)")
-            df = pd.read_excel(file_name)
+            df = pd.read_excel(resource_path(file_name))
             model = PandasModel(df)
             self.table.setModel(model)
             self.termocouple_number.setText(str(len(df.columns) - 1))
@@ -50,6 +50,12 @@ class Main(QMainWindow, FORM_CLASS):
             self.calculate_btn.setEnabled(False)
         except FileNotFoundError:
             pass
+
+    @staticmethod
+    def format_time(time):
+        minutes = int(time)
+        seconds = int((time * 60) % 60)
+        return f"{minutes}\'{seconds}\'\'"
 
     def validate_data(self):
         global new_df
@@ -105,6 +111,26 @@ class Main(QMainWindow, FORM_CLASS):
         for column in range(1, len(df.columns)):
             y_axis = new_df[f'Temp_{column}'].values.tolist()
             self.graphics_view.plot(x_axis, y_axis, pen=pg.mkPen(color=colors[column-1]), name=f'T{column}')
+        f_list = []
+        for column in range(1, len(df.columns)):
+            f0 = 0
+            for row in range(1, len(x_axis)):
+                f0 += 0.08333333 * (10 ** ((new_df.iloc[row][f'Temp_{column}'] - 121.0) / 6.0))
+            f_list.append(self.format_time(f0))
+
+        # for x in range(1, 12, 4):
+        #     for j in range(x, x + 4):
+        #         print("*", end = " ")
+        #     print()
+
+        for i in range(1, len(f_list)+1, 4):
+            for j in range():
+                self.label = QtWidgets.QLabel(self.partial_f0_box)
+                self.label.setStyleSheet(f'background-color: {colors[i]};')
+                self.label.setText(f'[T{i}] F0 = {f_list[i]}')
+                self.gridLayout.addWidget(self.label, 1, i-1, 1, 1)
+
+        print(f_list)
 
 
 def main():

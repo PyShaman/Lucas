@@ -45,6 +45,13 @@
 #     f_list.append(format_time(f0))
 # print(f_list)
 #
+
+
+
+fsdf = 4
+
+l = ['a', 1.0, ]
+
 n = int(input(" how many elements: "))
 col = row = 0
 for i in range(n):

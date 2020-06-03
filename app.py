@@ -63,6 +63,7 @@ class Main(QMainWindow, FORM_CLASS):
         global new_df
         self.clear_btn.setEnabled(False)
         sterile_hold_min_temp_list = []
+        sterile_hold_break_temp_list = []
         sterile_hold_elapsed_time = {}
         for column in range(1, len(df.columns)):
             sterile_hold_min_temp_row = (df[f'Temp_{column}'].values >= 121.0).argmax()
@@ -126,7 +127,9 @@ class Main(QMainWindow, FORM_CLASS):
             self.labels[f"label_{n}"] = QtWidgets.QLabel(self.partial_f0_box)
             self.labels[f"label_{n}"].setStyleSheet(f'background-color: {colors[n - 1]};color : black;')
             self.labels[f"label_{n}"].setText(f'[T{n}] F0={self.format_time(f_list[n - 1])}')
-            self.labels[f"label_{n}"].setAlignment(QtCore.Qt.AlignCenter)
+            self.labels[f"label_{n}"].setAlignment(QtCore
+                              .Qt
+                              .AlignCenter)
             self.labels[f"label_{n}"].setObjectName(f'label_{n}')
             self.gridLayout.addWidget(self.labels[f"label_{n}"], col, row, 1, 1)
             row += 1

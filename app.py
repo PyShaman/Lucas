@@ -62,24 +62,43 @@ class Main(QMainWindow, FORM_CLASS):
     def validate_data(self):
         global new_df
         self.clear_btn.setEnabled(False)
-        sterile_hold_min_temp_list = []
-        sterile_hold_break_temp_list = []
+        sterile_hold_start_temp_list = []
+        sterile_hold_end_temp_list = []
         sterile_hold_elapsed_time = {}
         for column in range(1, len(df.columns)):
-            sterile_hold_min_temp_row = (df[f'Temp_{column}'].values >= 121.0).argmax()
-            sterile_hold_max_temp_row = (df[f'Temp_{column}'].values >= 123.0).argmax()
-            sterile_hold_min_time = df.at[sterile_hold_min_temp_row, 'TIME']
-            sterile_hold_max_time = df.at[sterile_hold_max_temp_row, 'TIME']
-            time_difference = datetime.combine(date.today(), sterile_hold_max_time) \
-                              - datetime.combine(date.today(), sterile_hold_min_time)
-            sterile_hold_min_temp_row = (df[f'Temp_{column}'].values >= 121.0).argmax()
-            sterile_hold_min_temp_list.append(sterile_hold_min_temp_row)
-            sterile_hold_elapsed_time[f'Temp_{column}'] = str(timedelta(seconds=pd.Timedelta(time_difference).seconds))
+            sterile_hold_start_temp_row = (df[f'Temp_{column}'].values >= 121.0).argmax()
+            sterile_hold_start_time = df.at[sterile_hold_start_temp_row, 'TIME']
+            sterile_hold_start_temp_list.append(sterile_hold_start_temp_row)
+        last_termocouple_temp_121_row = max(range(len(sterile_hold_start_temp_list)),
+                                            key=sterile_hold_start_temp_list.__getitem__)
 
-        last_termocouple_temp_121_row = max(range(len(sterile_hold_min_temp_list)),
-                                            key=sterile_hold_min_temp_list.__getitem__)
-        new_df = pd.DataFrame(df)[sterile_hold_min_temp_list[last_termocouple_temp_121_row]:
-                                  sterile_hold_min_temp_list[last_termocouple_temp_121_row] + 187].copy(deep=True)
+        for column in range(1, len(df.columns)):
+            sterile_hold_end_temp_row = (df[f'Temp_{column}'][sterile_hold_start_temp_list[last_termocouple_temp_121_row]:].values < 121.0).argmax()
+            sterile_hold_end_time = df.at[sterile_hold_end_temp_row, 'TIME']
+            sterile_hold_end_temp_list.append(sterile_hold_end_temp_row)
+        first_termocouple_temp_121_row = min(range(len(sterile_hold_end_temp_list)),
+                                             key=sterile_hold_end_temp_list.__getitem__)
+
+        new_df = pd.DataFrame(df)[sterile_hold_start_temp_list[last_termocouple_temp_121_row]:
+                                  sterile_hold_start_temp_list[last_termocouple_temp_121_row] +
+                                  sterile_hold_end_temp_list[first_termocouple_temp_121_row]].copy(deep=True)
+
+
+        # for column in range(1, len(df.columns)):
+        #     sterile_hold_min_temp_row = (df[f'Temp_{column}'].values >= 121.0).argmax()
+        #     # sterile_hold_end_row =
+        #     sterile_hold_max_temp_row = (df[f'Temp_{column}'].values >= 123.0).argmax()
+        #     sterile_hold_min_time = df.at[sterile_hold_min_temp_row, 'TIME']
+        #     sterile_hold_max_time = df.at[sterile_hold_max_temp_row, 'TIME']
+        #     time_difference = datetime.combine(date.today(), sterile_hold_max_time) \
+        #                     - datetime.combine(date.today(), sterile_hold_min_time)
+        #     sterile_hold_min_temp_list.append(sterile_hold_min_temp_row)
+        #     sterile_hold_elapsed_time[f'Temp_{column}'] = str(timedelta(seconds=pd.Timedelta(time_difference).seconds))
+        #
+        # last_termocouple_temp_121_row = max(range(len(sterile_hold_min_temp_list)),
+        #                                     key=sterile_hold_min_temp_list.__getitem__)
+        # new_df = pd.DataFrame(df)[sterile_hold_min_temp_list[last_termocouple_temp_121_row]:
+        #                           sterile_hold_min_temp_list[last_termocouple_temp_121_row] + 187].copy(deep=True)
         model = PandasModel(new_df)
         self.table.setModel(model)
         temp_df = new_df.drop(['TIME'], axis=1)
@@ -115,7 +134,7 @@ class Main(QMainWindow, FORM_CLASS):
         self.graphics_view.getPlotItem().addLine(y=123.0, pen=pg.mkPen(style=QtCore.Qt.DotLine, color='#FFFFFF'))
         for column in range(1, len(df.columns)):
             y_axis = new_df[f'Temp_{column}'].values.tolist()
-            self.graphics_view.plot(x_axis, y_axis, pen=pg.mkPen(color=colors[column-1]), name=f'T{column}')
+            self.graphics_view.plot(x_axis, y_axis, pen=pg.mkPen(color=colors[column - 1]), name=f'T{column}')
         f_list = []
         for column in range(1, len(df.columns)):
             f0 = 0
@@ -123,20 +142,18 @@ class Main(QMainWindow, FORM_CLASS):
                 f0 += 0.08333333 * (10 ** ((new_df.iloc[row][f'Temp_{column}'] - 121.0) / 6.0))
             f_list.append(f0)
         col = row = 0
-        for n in range(1, len(f_list)+1):
+        for n in range(1, len(f_list) + 1):
             self.labels[f"label_{n}"] = QtWidgets.QLabel(self.partial_f0_box)
             self.labels[f"label_{n}"].setStyleSheet(f'background-color: {colors[n - 1]};color : black;')
             self.labels[f"label_{n}"].setText(f'[T{n}] F0={self.format_time(f_list[n - 1])}')
-            self.labels[f"label_{n}"].setAlignment(QtCore
-                              .Qt
-                              .AlignCenter)
+            self.labels[f"label_{n}"].setAlignment(QtCore.Qt.AlignCenter)
             self.labels[f"label_{n}"].setObjectName(f'label_{n}')
             self.gridLayout.addWidget(self.labels[f"label_{n}"], col, row, 1, 1)
             row += 1
             if row == 4:
                 row = 0
                 col += 1
-        self.T_total.setText(f'F_average = {self.format_time(sum(f_list)/len(f_list))}')
+        self.T_total.setText(f'F_average = {self.format_time(sum(f_list) / len(f_list))}')
 
     def clear_data(self):
         self.termocouple_number.setText("")

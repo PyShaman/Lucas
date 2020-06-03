@@ -4,7 +4,6 @@ import pyqtgraph as pg
 import sys
 from datetime import datetime, date, timedelta
 from model import PandasModel
-from os import path
 from pyqtgraph import PlotWidget, plot
 from PyQt5 import QtCore
 from PyQt5 import QtWidgets
@@ -30,6 +29,7 @@ class Main(QMainWindow, FORM_CLASS):
         QMainWindow.__init__(self)
         self.setupUi(self)
         self.buttons()
+        self.labels = dict()
 
     def buttons(self):
         self.load_btn.clicked.connect(self.open_file)
@@ -102,7 +102,6 @@ class Main(QMainWindow, FORM_CLASS):
         self.calculate_btn.setEnabled(True)
 
     def calculate_data(self):
-        global f_list
         self.graphics_view.clear()
         self.clear_btn.setEnabled(True)
         colors = ['#FF0000', '#FF8000', '#FFFF00', '#80FF00', '#00FF00', '#00FF80', '#00FFFF', '#0080FF', '#0000FF',
@@ -123,7 +122,6 @@ class Main(QMainWindow, FORM_CLASS):
                 f0 += 0.08333333 * (10 ** ((new_df.iloc[row][f'Temp_{column}'] - 121.0) / 6.0))
             f_list.append(f0)
         col = row = 0
-        self.labels = dict()
         for n in range(1, len(f_list)+1):
             self.labels[f"label_{n}"] = QtWidgets.QLabel(self.partial_f0_box)
             self.labels[f"label_{n}"].setStyleSheet(f'background-color: {colors[n - 1]};color : black;')
@@ -138,21 +136,22 @@ class Main(QMainWindow, FORM_CLASS):
         self.T_total.setText(f'F_average = {self.format_time(sum(f_list)/len(f_list))}')
 
     def clear_data(self):
+        self.termocouple_number.setText("")
+        self.validation_label.setStyleSheet("")
+        self.validation_label.setText("")
+        self.start_time.setText("")
+        self.stop_time.setText("")
+        self.time_delta.setText("")
+        self.table.setModel(None)
+        self.T_total.setText("")
         self.graphics_view.clear()
+        index = self.gridLayout.count()
+        while index > 0:
+            self.gridLayout.itemAt(index - 1).widget().setParent(None)
+            index -= 1
         self.validation_btn.setEnabled(False)
         self.calculate_btn.setEnabled(False)
-        # self.clear_btn.setEnabled(False)
-        print(self.partial_f0_box.children())
-        print(self.gridLayout.itemAt(0))
-        self.gridLayout.itemAt(0).widget().removeWidget()
-        # for n in range(0, len(f_list)):
-        #     print(self.gridLayout.itemAt(n))
-        # self.labels = dict()
-        # for n in range(1, len(f_list) + 1):
-        #     self.gridLayout.removeItem(self.partial_f0_box)
-            # self.gridLayout.removeItem(self.labels[f"label_{n}"])
-            # self.labels[f"label_{n}"].deleteLater()
-        # self.label = None
+        self.clear_btn.setEnabled(False)
 
 
 def main():

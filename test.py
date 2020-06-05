@@ -9,9 +9,7 @@ def resource_path(relative_path):
     return os.path.join(base_path, relative_path)
 
 
-df = pd.read_excel(resource_path("valid_short_data.xlsx"))
-
-# print(df['Temp_3'][338:])
+df = pd.read_excel(resource_path("invalid_short_data.xlsx"))
 sterile_hold_min_temp_list = []
 sterile_hold_end_temp_list = []
 sterile_hold_elapsed_time = {}
@@ -19,17 +17,36 @@ for column in range(1, len(df.columns)):
     sterile_hold_min_temp_row = (df[f'Temp_{column}'].values >= 121.0).argmax()
     sterile_hold_min_time = df.at[sterile_hold_min_temp_row, 'TIME']
     sterile_hold_min_temp_list.append(sterile_hold_min_temp_row)
-last_termocouple_temp_121_row = max(range(len(sterile_hold_min_temp_list)), key=sterile_hold_min_temp_list.__getitem__)
+last_termocouple_temp_121_row = max(range(len(sterile_hold_min_temp_list)),
+                                    key=sterile_hold_min_temp_list.__getitem__)
 
 for column in range(1, len(df.columns)):
-    sterile_hold_end_temp_row = (df[f'Temp_{column}'][sterile_hold_min_temp_list[last_termocouple_temp_121_row]:].values < 121.0).argmax()
+    sterile_hold_end_temp_row = (df[f'Temp_{column}'][sterile_hold_min_temp_list[last_termocouple_temp_121_row]:]
+                                 .values < 121.0).argmax()
     sterile_hold_end_time = df.at[sterile_hold_end_temp_row, 'TIME']
     sterile_hold_end_temp_list.append(sterile_hold_end_temp_row)
-first_termocouple_temp_121_sterile_hold_row = min(range(len(sterile_hold_end_temp_list)), key=sterile_hold_end_temp_list.__getitem__)
+first_termocouple_temp_121_sterile_hold_row = max(range(len(sterile_hold_end_temp_list)),
+                                                  key=sterile_hold_end_temp_list.__getitem__)
+
+# print(sterile_hold_min_temp_list)
+# print(last_termocouple_temp_121_row)
+# print(df[sterile_hold_min_temp_list[last_termocouple_temp_121_row]:])
+# print(sterile_hold_end_temp_list)
+# print(first_termocouple_temp_121_sterile_hold_row)
 
 new_df = pd.DataFrame(df)[sterile_hold_min_temp_list[last_termocouple_temp_121_row]:
                           sterile_hold_min_temp_list[last_termocouple_temp_121_row] + sterile_hold_end_temp_list[first_termocouple_temp_121_sterile_hold_row]].copy(deep=True)
-print(new_df)
+# print(new_df)
+start_time_row = sterile_hold_min_temp_list[last_termocouple_temp_121_row]
+end_time_row = sterile_hold_min_temp_list[last_termocouple_temp_121_row] + sterile_hold_end_temp_list[first_termocouple_temp_121_sterile_hold_row]
+start_time = df['TIME'][start_time_row]
+end_time = df['TIME'][end_time_row]
+print("abs(A-B): ", abs(datetime.combine(date.today(), start_time)-datetime.combine(date.today(), end_time)))
+print(df["TIME"][0])
+print(df["TIME"][df.shape[0]-1])
+print(f'process time: {abs(datetime.combine(date.today(), df["TIME"][0])-datetime.combine(date.today(), df["TIME"][df.shape[0]-1]))}')
+print(f'process time: {datetime.combine(date.today(), df["TIME"][df.shape[0]-1]) - datetime.combine(date.today(), df["TIME"][0])}')
+
 # x_axis = new_df['TIME'].index.tolist()
 #
 #

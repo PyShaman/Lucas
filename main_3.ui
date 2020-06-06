@@ -13,6 +13,10 @@
   <property name="windowTitle">
    <string>Minimum Viable Product (testing)</string>
   </property>
+  <property name="windowIcon">
+   <iconset theme="lab">
+    <normaloff>laboratory.ico</normaloff>laboratory.ico</iconset>
+  </property>
   <property name="styleSheet">
    <string notr="true">QToolTip
 {

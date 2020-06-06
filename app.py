@@ -77,7 +77,7 @@ class Main(QMainWindow, FORM_CLASS):
             sterile_hold_end_temp_row = (df[f'Temp_{column}'][sterile_hold_min_temp_list[
                                                                   last_termocouple_temp_121_row]:].values < 121.0).argmax()
             sterile_hold_end_temp_list.append(sterile_hold_end_temp_row)
-        first_termocouple_temp_121_sterile_hold_row = max(range(len(sterile_hold_end_temp_list)),
+        first_termocouple_temp_121_sterile_hold_row = min(range(len(sterile_hold_end_temp_list)),
                                                           key=sterile_hold_end_temp_list.__getitem__)
         start_time_row = sterile_hold_min_temp_list[last_termocouple_temp_121_row]
         end_time_row = sterile_hold_min_temp_list[last_termocouple_temp_121_row] + sterile_hold_end_temp_list[
@@ -95,6 +95,10 @@ class Main(QMainWindow, FORM_CLASS):
                 'background-color: rgb(75, 225, 0);color: rgb(20, 125, 0);font: 75 16pt "Century Gothic";')
             self.validation_label.setText('Sterile Hold valid!')
         if (temp_df.values < 121.0).any():
+            self.validation_label.setStyleSheet(
+                'background-color: rgb(255, 0, 0);color: rgb(255, 255, 255);font: 75 16pt "Century Gothic";')
+            self.validation_label.setText('Sterile Hold invalid!')
+        if (temp_df.values > 123.0).any():
             self.validation_label.setStyleSheet(
                 'background-color: rgb(255, 0, 0);color: rgb(255, 255, 255);font: 75 16pt "Century Gothic";')
             self.validation_label.setText('Sterile Hold invalid!')

@@ -67,21 +67,18 @@ class Main(QMainWindow, FORM_CLASS):
         self.clear_btn.setEnabled(False)
         sterile_hold_min_temp_list = []
         sterile_hold_end_temp_list = []
-        sterile_hold_elapsed_time = {}
         for column in range(1, len(df.columns)):
             sterile_hold_min_temp_row = (df[f'Temp_{column}'].values >= 121.0).argmax()
-            sterile_hold_min_time = df.at[sterile_hold_min_temp_row, 'TIME']
             sterile_hold_min_temp_list.append(sterile_hold_min_temp_row)
         last_termocouple_temp_121_row = max(range(len(sterile_hold_min_temp_list)),
-                                            key = sterile_hold_min_temp_list.__getitem__)
+                                            key=sterile_hold_min_temp_list.__getitem__)
 
         for column in range(1, len(df.columns)):
             sterile_hold_end_temp_row = (df[f'Temp_{column}'][sterile_hold_min_temp_list[
                                                                   last_termocouple_temp_121_row]:].values < 121.0).argmax()
-            sterile_hold_end_time = df.at[sterile_hold_end_temp_row, 'TIME']
             sterile_hold_end_temp_list.append(sterile_hold_end_temp_row)
         first_termocouple_temp_121_sterile_hold_row = max(range(len(sterile_hold_end_temp_list)),
-                                                          key = sterile_hold_end_temp_list.__getitem__)
+                                                          key=sterile_hold_end_temp_list.__getitem__)
         start_time_row = sterile_hold_min_temp_list[last_termocouple_temp_121_row]
         end_time_row = sterile_hold_min_temp_list[last_termocouple_temp_121_row] + sterile_hold_end_temp_list[
             first_termocouple_temp_121_sterile_hold_row]
@@ -89,7 +86,7 @@ class Main(QMainWindow, FORM_CLASS):
         end_time = df['TIME'][end_time_row]
         new_df = pd.DataFrame(df)[sterile_hold_min_temp_list[last_termocouple_temp_121_row]:
                                   sterile_hold_min_temp_list[last_termocouple_temp_121_row] +
-                                  sterile_hold_end_temp_list[first_termocouple_temp_121_sterile_hold_row]].copy(deep = True)
+                                  sterile_hold_end_temp_list[first_termocouple_temp_121_sterile_hold_row]].copy(deep=True)
         model = PandasModel(new_df)
         self.table.setModel(model)
         temp_df = new_df.drop(['TIME'], axis=1)
@@ -103,11 +100,12 @@ class Main(QMainWindow, FORM_CLASS):
             self.validation_label.setText('Sterile Hold invalid!')
         self.start_time.setText(str(start_time))
         self.stop_time.setText(str(end_time))
-        delta_time = abs(datetime.combine(date.today(), start_time)-datetime.combine(date.today(), end_time))
-        if timedelta(minutes=15, seconds=0) <= delta_time <= timedelta(minutes=18, seconds=0):
-            self.time_delta.setStyleSheet('font: 75 16pt "Century Gothic";color: rgb(20, 125, 0);')
+        delta_time = abs(datetime.combine(date.today(), start_time) - datetime.combine(date.today(), end_time))
+        if timedelta(minutes=15, seconds=0) <= delta_time <= timedelta(minutes=15, seconds=30):
+            self.time_delta.setStyleSheet('font: 75 16pt "Century Gothic";color: rgb(0, 255, 0);')
         else:
             self.time_delta.setStyleSheet('font: 75 16pt "Century Gothic";color: rgb(255, 0, 0);')
+
         self.time_delta.setText(str(delta_time))
         self.calculate_btn.setEnabled(True)
 

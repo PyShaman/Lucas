@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1067</width>
-    <height>544</height>
+    <width>1117</width>
+    <height>607</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -583,13 +583,6 @@ QAbstractSpinBox {
            </widget>
           </item>
           <item>
-           <widget class="QSpinBox" name="spinBox">
-            <property name="styleSheet">
-             <string notr="true">font: 14pt &quot;Century Gothic&quot;;</string>
-            </property>
-           </widget>
-          </item>
-          <item>
            <widget class="QPushButton" name="validation_btn">
             <property name="styleSheet">
              <string notr="true">font: 14pt &quot;Century Gothic&quot;;</string>
@@ -627,13 +620,13 @@ QAbstractSpinBox {
          <property name="minimumSize">
           <size>
            <width>320</width>
-           <height>0</height>
+           <height>200</height>
           </size>
          </property>
          <property name="maximumSize">
           <size>
            <width>320</width>
-           <height>140</height>
+           <height>200</height>
           </size>
          </property>
          <property name="title">
@@ -862,7 +855,7 @@ QAbstractSpinBox {
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1067</width>
+     <width>1117</width>
      <height>21</height>
     </rect>
    </property>

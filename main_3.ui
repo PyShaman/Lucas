@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1117</width>
-    <height>607</height>
+    <width>1134</width>
+    <height>565</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -539,13 +539,19 @@ QAbstractSpinBox {
 </string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <layout class="QHBoxLayout" name="horizontalLayout">
-    <item>
+   <layout class="QGridLayout" name="gridLayout_3">
+    <item row="0" column="0">
      <widget class="QFrame" name="frame">
       <property name="minimumSize">
        <size>
         <width>340</width>
         <height>0</height>
+       </size>
+      </property>
+      <property name="maximumSize">
+       <size>
+        <width>340</width>
+        <height>16777215</height>
        </size>
       </property>
       <property name="frameShape">
@@ -789,11 +795,11 @@ QAbstractSpinBox {
       </layout>
      </widget>
     </item>
-    <item>
+    <item row="0" column="1">
      <widget class="QTabWidget" name="tabWidget">
       <property name="minimumSize">
        <size>
-        <width>600</width>
+        <width>770</width>
         <height>0</height>
        </size>
       </property>
@@ -801,7 +807,7 @@ QAbstractSpinBox {
        <string notr="true">font: 14pt &quot;Century Gothic&quot;;</string>
       </property>
       <property name="currentIndex">
-       <number>0</number>
+       <number>2</number>
       </property>
       <widget class="QWidget" name="tab">
        <attribute name="title">
@@ -810,6 +816,366 @@ QAbstractSpinBox {
        <layout class="QVBoxLayout" name="verticalLayout_4">
         <item>
          <widget class="QTableView" name="table"/>
+        </item>
+        <item>
+         <widget class="QFrame" name="frame_2">
+          <property name="frameShape">
+           <enum>QFrame::StyledPanel</enum>
+          </property>
+          <property name="frameShadow">
+           <enum>QFrame::Raised</enum>
+          </property>
+          <layout class="QGridLayout" name="gridLayout_4">
+           <item row="1" column="2">
+            <widget class="QLabel" name="label_12">
+             <property name="styleSheet">
+              <string notr="true">background-color: rgb(0, 255, 0);
+font: 75 10pt &quot;Century Gothic&quot;;
+color: rgb(0, 0, 0);
+border-color: rgb(255, 255, 255);</string>
+             </property>
+             <property name="text">
+              <string>15:20</string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignCenter</set>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="3">
+            <widget class="QLabel" name="label_11">
+             <property name="styleSheet">
+              <string notr="true">background-color: rgb(0, 255, 0);
+font: 75 10pt &quot;Century Gothic&quot;;
+color: rgb(0, 0, 0);
+border-color: rgb(255, 255, 255);</string>
+             </property>
+             <property name="text">
+              <string>15:30</string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignCenter</set>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="7">
+            <widget class="QLabel" name="label_17">
+             <property name="styleSheet">
+              <string notr="true">background-color: rgb(0, 255, 0);
+font: 75 10pt &quot;Century Gothic&quot;;
+color: rgb(0, 0, 0);
+border-color: rgb(255, 255, 255);</string>
+             </property>
+             <property name="text">
+              <string>15:20</string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignCenter</set>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="9">
+            <widget class="QLabel" name="label_13">
+             <property name="styleSheet">
+              <string notr="true">background-color: rgb(0, 255, 0);
+font: 75 10pt &quot;Century Gothic&quot;;
+color: rgb(0, 0, 0);
+border-color: rgb(255, 255, 255);</string>
+             </property>
+             <property name="text">
+              <string>15:25</string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignCenter</set>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="11">
+            <widget class="QLabel" name="label_4">
+             <property name="styleSheet">
+              <string notr="true">background-color: rgb(255, 0, 0);
+font: 75 10pt &quot;Century Gothic&quot;;
+color: rgb(0, 0, 0);
+border-color: rgb(255, 255, 255);</string>
+             </property>
+             <property name="text">
+              <string>14:55</string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignCenter</set>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="5">
+            <widget class="QLabel" name="label_14">
+             <property name="styleSheet">
+              <string notr="true">background-color: rgb(0, 255, 0);
+font: 75 10pt &quot;Century Gothic&quot;;
+color: rgb(0, 0, 0);
+border-color: rgb(255, 255, 255);</string>
+             </property>
+             <property name="text">
+              <string>15:30</string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignCenter</set>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="6">
+            <widget class="QLabel" name="label_16">
+             <property name="styleSheet">
+              <string notr="true">background-color: rgb(255, 0, 0);
+font: 75 10pt &quot;Century Gothic&quot;;
+color: rgb(0, 0, 0);
+border-color: rgb(255, 255, 255);</string>
+             </property>
+             <property name="text">
+              <string>14:50</string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignCenter</set>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="1">
+            <widget class="QLabel" name="label_8">
+             <property name="styleSheet">
+              <string notr="true">background-color: rgb(0, 255, 0);
+font: 75 10pt &quot;Century Gothic&quot;;
+color: rgb(0, 0, 0);
+border-color: rgb(255, 255, 255);</string>
+             </property>
+             <property name="text">
+              <string>15:15</string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignCenter</set>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="0">
+            <widget class="QLabel" name="label_6">
+             <property name="styleSheet">
+              <string notr="true">background-color: rgb(0, 255, 0);
+font: 75 10pt &quot;Century Gothic&quot;;
+color: rgb(0, 0, 0);
+border-color: rgb(255, 255, 255);</string>
+             </property>
+             <property name="text">
+              <string>15:25</string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignCenter</set>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="8">
+            <widget class="QLabel" name="label_10">
+             <property name="styleSheet">
+              <string notr="true">background-color: rgb(0, 255, 0);
+font: 75 10pt &quot;Century Gothic&quot;;
+color: rgb(0, 0, 0);
+border-color: rgb(255, 255, 255);</string>
+             </property>
+             <property name="text">
+              <string>15:15</string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignCenter</set>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="10">
+            <widget class="QLabel" name="label_18">
+             <property name="styleSheet">
+              <string notr="true">background-color: rgb(0, 255, 0);
+font: 75 10pt &quot;Century Gothic&quot;;
+color: rgb(0, 0, 0);
+border-color: rgb(255, 255, 255);</string>
+             </property>
+             <property name="text">
+              <string>15:30</string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignCenter</set>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="4">
+            <widget class="QLabel" name="label_15">
+             <property name="styleSheet">
+              <string notr="true">background-color: rgb(0, 255, 0);
+font: 75 10pt &quot;Century Gothic&quot;;
+color: rgb(0, 0, 0);
+border-color: rgb(255, 255, 255);</string>
+             </property>
+             <property name="text">
+              <string>15:25</string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignCenter</set>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="0">
+            <widget class="QLabel" name="label_9">
+             <property name="styleSheet">
+              <string notr="true">font: 10pt &quot;Century Gothic&quot;;</string>
+             </property>
+             <property name="text">
+              <string>TC1</string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignCenter</set>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="1">
+            <widget class="QLabel" name="label_19">
+             <property name="styleSheet">
+              <string notr="true">font: 10pt &quot;Century Gothic&quot;;</string>
+             </property>
+             <property name="text">
+              <string>TC2</string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignCenter</set>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="2">
+            <widget class="QLabel" name="label_20">
+             <property name="styleSheet">
+              <string notr="true">font: 10pt &quot;Century Gothic&quot;;</string>
+             </property>
+             <property name="text">
+              <string>TC3</string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignCenter</set>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="3">
+            <widget class="QLabel" name="label_21">
+             <property name="styleSheet">
+              <string notr="true">font: 10pt &quot;Century Gothic&quot;;</string>
+             </property>
+             <property name="text">
+              <string>TC4</string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignCenter</set>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="4">
+            <widget class="QLabel" name="label_22">
+             <property name="styleSheet">
+              <string notr="true">font: 10pt &quot;Century Gothic&quot;;</string>
+             </property>
+             <property name="text">
+              <string>TC5</string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignCenter</set>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="5">
+            <widget class="QLabel" name="label_23">
+             <property name="styleSheet">
+              <string notr="true">font: 10pt &quot;Century Gothic&quot;;</string>
+             </property>
+             <property name="text">
+              <string>TC6</string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignCenter</set>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="6">
+            <widget class="QLabel" name="label_24">
+             <property name="styleSheet">
+              <string notr="true">font: 10pt &quot;Century Gothic&quot;;</string>
+             </property>
+             <property name="text">
+              <string>TC7</string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignCenter</set>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="7">
+            <widget class="QLabel" name="label_25">
+             <property name="styleSheet">
+              <string notr="true">font: 10pt &quot;Century Gothic&quot;;</string>
+             </property>
+             <property name="text">
+              <string>TC8</string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignCenter</set>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="8">
+            <widget class="QLabel" name="label_26">
+             <property name="styleSheet">
+              <string notr="true">font: 10pt &quot;Century Gothic&quot;;</string>
+             </property>
+             <property name="text">
+              <string>TC9</string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignCenter</set>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="9">
+            <widget class="QLabel" name="label_27">
+             <property name="styleSheet">
+              <string notr="true">font: 10pt &quot;Century Gothic&quot;;</string>
+             </property>
+             <property name="text">
+              <string>TC10</string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignCenter</set>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="10">
+            <widget class="QLabel" name="label_28">
+             <property name="styleSheet">
+              <string notr="true">font: 10pt &quot;Century Gothic&quot;;</string>
+             </property>
+             <property name="text">
+              <string>TC11</string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignCenter</set>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="11">
+            <widget class="QLabel" name="label_29">
+             <property name="styleSheet">
+              <string notr="true">font: 10pt &quot;Century Gothic&quot;;</string>
+             </property>
+             <property name="text">
+              <string>TC12</string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignCenter</set>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </widget>
         </item>
        </layout>
       </widget>
@@ -850,6 +1216,264 @@ QAbstractSpinBox {
         </item>
        </layout>
       </widget>
+      <widget class="QWidget" name="tab_3">
+       <attribute name="title">
+        <string>Validation Protocol</string>
+       </attribute>
+       <layout class="QHBoxLayout" name="horizontalLayout">
+        <item>
+         <widget class="QGroupBox" name="validation_protocol_box">
+          <property name="minimumSize">
+           <size>
+            <width>750</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="layoutDirection">
+           <enum>Qt::LeftToRight</enum>
+          </property>
+          <property name="autoFillBackground">
+           <bool>false</bool>
+          </property>
+          <property name="flat">
+           <bool>false</bool>
+          </property>
+          <property name="checkable">
+           <bool>false</bool>
+          </property>
+          <layout class="QGridLayout" name="gridLayout_5">
+           <item row="0" column="7">
+            <widget class="QLabel" name="label_37">
+             <property name="minimumSize">
+              <size>
+               <width>100</width>
+               <height>90</height>
+              </size>
+             </property>
+             <property name="maximumSize">
+              <size>
+               <width>100</width>
+               <height>90</height>
+              </size>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">font: 9pt &quot;Century Gothic&quot;;</string>
+             </property>
+             <property name="text">
+              <string>F0 Value rounded
+(mins)</string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignBottom|Qt::AlignHCenter</set>
+             </property>
+             <property name="wordWrap">
+              <bool>true</bool>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="6">
+            <widget class="QLabel" name="label_36">
+             <property name="minimumSize">
+              <size>
+               <width>100</width>
+               <height>90</height>
+              </size>
+             </property>
+             <property name="maximumSize">
+              <size>
+               <width>100</width>
+               <height>90</height>
+              </size>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">font: 9pt &quot;Century Gothic&quot;;</string>
+             </property>
+             <property name="text">
+              <string>F0 Value from Summary Report
+(mins)</string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignBottom|Qt::AlignHCenter</set>
+             </property>
+             <property name="wordWrap">
+              <bool>true</bool>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="1">
+            <widget class="QLabel" name="label_30">
+             <property name="minimumSize">
+              <size>
+               <width>100</width>
+               <height>90</height>
+              </size>
+             </property>
+             <property name="maximumSize">
+              <size>
+               <width>100</width>
+               <height>90</height>
+              </size>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">font: 9pt &quot;Century Gothic&quot;;</string>
+             </property>
+             <property name="text">
+              <string>Time from Start to Reach Sterilisation Temperature
+(mins:secs)</string>
+             </property>
+             <property name="scaledContents">
+              <bool>false</bool>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignBottom|Qt::AlignHCenter</set>
+             </property>
+             <property name="wordWrap">
+              <bool>true</bool>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="5">
+            <widget class="QLabel" name="label_35">
+             <property name="minimumSize">
+              <size>
+               <width>100</width>
+               <height>90</height>
+              </size>
+             </property>
+             <property name="maximumSize">
+              <size>
+               <width>100</width>
+               <height>90</height>
+              </size>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">font: 9pt &quot;Century Gothic&quot;;</string>
+             </property>
+             <property name="text">
+              <string>Termocouple Temperature Fluctuation
+(*C) (B-A)</string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignBottom|Qt::AlignHCenter</set>
+             </property>
+             <property name="wordWrap">
+              <bool>true</bool>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="4">
+            <widget class="QLabel" name="label_34">
+             <property name="minimumSize">
+              <size>
+               <width>100</width>
+               <height>90</height>
+              </size>
+             </property>
+             <property name="maximumSize">
+              <size>
+               <width>100</width>
+               <height>90</height>
+              </size>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">font: 9pt &quot;Century Gothic&quot;;</string>
+             </property>
+             <property name="text">
+              <string>Maximum Temperature
+in Sterilisation
+Hold Period
+(*C) (B)</string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignBottom|Qt::AlignHCenter</set>
+             </property>
+             <property name="wordWrap">
+              <bool>true</bool>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="2">
+            <widget class="QLabel" name="label_32">
+             <property name="minimumSize">
+              <size>
+               <width>100</width>
+               <height>90</height>
+              </size>
+             </property>
+             <property name="maximumSize">
+              <size>
+               <width>100</width>
+               <height>90</height>
+              </size>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">font: 9pt &quot;Century Gothic&quot;;</string>
+             </property>
+             <property name="text">
+              <string>Time at Sterilisation Temperature
+(mins:secs)</string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignBottom|Qt::AlignHCenter</set>
+             </property>
+             <property name="wordWrap">
+              <bool>true</bool>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="3">
+            <widget class="QLabel" name="label_33">
+             <property name="minimumSize">
+              <size>
+               <width>100</width>
+               <height>90</height>
+              </size>
+             </property>
+             <property name="maximumSize">
+              <size>
+               <width>100</width>
+               <height>90</height>
+              </size>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">font: 9pt &quot;Century Gothic&quot;;</string>
+             </property>
+             <property name="text">
+              <string>Minimum Temperature in Sterilisation Hold Period
+(*C) (A)</string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignBottom|Qt::AlignHCenter</set>
+             </property>
+             <property name="wordWrap">
+              <bool>true</bool>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="0">
+            <widget class="QLabel" name="label_31">
+             <property name="maximumSize">
+              <size>
+               <width>25</width>
+               <height>90</height>
+              </size>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">font: 9pt &quot;Century Gothic&quot;;</string>
+             </property>
+             <property name="text">
+              <string>LC#</string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignBottom|Qt::AlignLeading|Qt::AlignLeft</set>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+        </item>
+       </layout>
+      </widget>
      </widget>
     </item>
    </layout>
@@ -859,7 +1483,7 @@ QAbstractSpinBox {
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1117</width>
+     <width>1134</width>
      <height>21</height>
     </rect>
    </property>

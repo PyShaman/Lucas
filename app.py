@@ -30,6 +30,7 @@ class Main(QMainWindow, FORM_CLASS):
         self.setupUi(self)
         self.buttons()
         self.labels = dict()
+        self.protocol_labels = dict()
 
     def buttons(self):
         self.load_btn.clicked.connect(self.open_file)
@@ -64,6 +65,7 @@ class Main(QMainWindow, FORM_CLASS):
 
     def validate_data(self):
         global new_df
+        global sterile_hold_min_temp_list
         self.clear_btn.setEnabled(False)
         sterile_hold_min_temp_list = []
         sterile_hold_end_temp_list = []
@@ -135,17 +137,73 @@ class Main(QMainWindow, FORM_CLASS):
             f_list.append(f0)
         col = row = 0
         for n in range(1, len(f_list) + 1):
-            self.labels[f"label_{n}"] = QtWidgets.QLabel(self.partial_f0_box)
-            self.labels[f"label_{n}"].setStyleSheet(f'background-color: {colors[n - 1]};color : black;')
-            self.labels[f"label_{n}"].setText(f'[T{n}] F0={self.format_time(f_list[n - 1])}')
-            self.labels[f"label_{n}"].setAlignment(QtCore.Qt.AlignCenter)
-            self.labels[f"label_{n}"].setObjectName(f'label_{n}')
+            self.labels[f'label_{n}'] = QtWidgets.QLabel(self.partial_f0_box)
+            self.labels[f'label_{n}'].setStyleSheet(f'background-color: {colors[n - 1]};color : black;')
+            self.labels[f'label_{n}'].setText(f'[T{n}] F0={self.format_time(f_list[n - 1])}')
+            self.labels[f'label_{n}'].setAlignment(QtCore.Qt.AlignCenter)
+            self.labels[f'label_{n}'].setObjectName(f'label_{n}')
             self.gridLayout.addWidget(self.labels[f"label_{n}"], col, row, 1, 1)
             row += 1
             if row == 4:
                 row = 0
                 col += 1
         self.T_total.setText(f'F_average = {self.format_time(sum(f_list) / len(f_list))}')
+        for m in range(1, len(f_list) + 1):
+            self.protocol_labels[f'lc_{m}'] = QtWidgets.QLabel(self.validation_protocol_box)
+            self.protocol_labels[f'lc_{m}'].setStyleSheet(f'background-color: {colors[m - 1]};color : black;')
+            self.protocol_labels[f'lc_{m}'].setText(f'{m}')
+            self.protocol_labels[f'lc_{m}'].setAlignment(QtCore.Qt.AlignCenter)
+            self.protocol_labels[f'lc_{m}'].setObjectName(f'lc_{m}')
+            self.gridLayout_5.addWidget(self.protocol_labels[f"lc_{m}"], m, 0, 1, 1)
+
+            self.protocol_labels[f'tfs_{m}'] = QtWidgets.QLabel(self.validation_protocol_box)
+            self.protocol_labels[f'tfs_{m}'].setStyleSheet(f'background-color: {colors[m - 1]};color : black;')
+            self.protocol_labels[f'tfs_{m}'].setText(f'{abs(datetime.combine(date.today(), df["TIME"][0])-datetime.combine(date.today(), df["TIME"][sterile_hold_min_temp_list[m-1]]))}')
+            self.protocol_labels[f'tfs_{m}'].setAlignment(QtCore.Qt.AlignCenter)
+            self.protocol_labels[f'tfs_{m}'].setObjectName(f'tfs_{m}')
+            self.gridLayout_5.addWidget(self.protocol_labels[f"tfs_{m}"], m, 1, 1, 1)
+
+            self.protocol_labels[f'tas_{m}'] = QtWidgets.QLabel(self.validation_protocol_box)
+            self.protocol_labels[f'tas_{m}'].setStyleSheet(f'background-color: {colors[m - 1]};color : black;')
+            self.protocol_labels[f'tas_{m}'].setText(f'{df["TIME"][sterile_hold_min_temp_list[m-1]]}')
+            self.protocol_labels[f'tas_{m}'].setAlignment(QtCore.Qt.AlignCenter)
+            self.protocol_labels[f'tas_{m}'].setObjectName(f'tas_{m}')
+            self.gridLayout_5.addWidget(self.protocol_labels[f"tas_{m}"], m, 2, 1, 1)
+
+            self.protocol_labels[f't_min_{m}'] = QtWidgets.QLabel(self.validation_protocol_box)
+            self.protocol_labels[f't_min_{m}'].setStyleSheet(f'background-color: {colors[m - 1]};color : black;')
+            self.protocol_labels[f't_min_{m}'].setText(f'{new_df[f"Temp_{m}"].min()}')
+            self.protocol_labels[f't_min_{m}'].setAlignment(QtCore.Qt.AlignCenter)
+            self.protocol_labels[f't_min_{m}'].setObjectName(f't_min_{m}')
+            self.gridLayout_5.addWidget(self.protocol_labels[f"t_min_{m}"], m, 3, 1, 1)
+
+            self.protocol_labels[f't_max_{m}'] = QtWidgets.QLabel(self.validation_protocol_box)
+            self.protocol_labels[f't_max_{m}'].setStyleSheet(f'background-color: {colors[m - 1]};color : black;')
+            self.protocol_labels[f't_max_{m}'].setText(f'{new_df[f"Temp_{m}"].max()}')
+            self.protocol_labels[f't_max_{m}'].setAlignment(QtCore.Qt.AlignCenter)
+            self.protocol_labels[f't_max_{m}'].setObjectName(f't_max_{m}')
+            self.gridLayout_5.addWidget(self.protocol_labels[f"t_max_{m}"], m, 4, 1, 1)
+
+            self.protocol_labels[f'ttf_{m}'] = QtWidgets.QLabel(self.validation_protocol_box)
+            self.protocol_labels[f'ttf_{m}'].setStyleSheet(f'background-color: {colors[m - 1]};color : black;')
+            self.protocol_labels[f'ttf_{m}'].setText(f'{round(new_df[f"Temp_{m}"].max()-new_df[f"Temp_{m}"].min(), 2)}')
+            self.protocol_labels[f'ttf_{m}'].setAlignment(QtCore.Qt.AlignCenter)
+            self.protocol_labels[f'ttf_{m}'].setObjectName(f'ttf_{m}')
+            self.gridLayout_5.addWidget(self.protocol_labels[f"ttf_{m}"], m, 5, 1, 1)
+
+            self.protocol_labels[f'f0v_{m}'] = QtWidgets.QLabel(self.validation_protocol_box)
+            self.protocol_labels[f'f0v_{m}'].setStyleSheet(f'background-color: {colors[m - 1]};color : black;')
+            self.protocol_labels[f'f0v_{m}'].setText(f'f0v_{m}')
+            self.protocol_labels[f'f0v_{m}'].setAlignment(QtCore.Qt.AlignCenter)
+            self.protocol_labels[f'f0v_{m}'].setObjectName(f'f0v_{m}')
+            self.gridLayout_5.addWidget(self.protocol_labels[f"f0v_{m}"], m, 6, 1, 1)
+
+            self.protocol_labels[f'f0vr_{m}'] = QtWidgets.QLabel(self.validation_protocol_box)
+            self.protocol_labels[f'f0vr_{m}'].setStyleSheet(f'background-color: {colors[m - 1]};color : black;')
+            self.protocol_labels[f'f0vr_{m}'].setText(f'{self.format_time(f_list[m - 1])}')
+            self.protocol_labels[f'f0vr_{m}'].setAlignment(QtCore.Qt.AlignCenter)
+            self.protocol_labels[f'f0vr_{m}'].setObjectName(f'f0vr_{m}')
+            self.gridLayout_5.addWidget(self.protocol_labels[f"f0vr_{m}"], m, 7, 1, 1)
 
     def clear_data(self):
         self.termocouple_number.setText("")
@@ -159,9 +217,13 @@ class Main(QMainWindow, FORM_CLASS):
         self.T_total.setText("")
         self.graphics_view.clear()
         index = self.gridLayout.count()
+        index_2 = self.gridLayout_5.count()
         while index > 0:
             self.gridLayout.itemAt(index - 1).widget().setParent(None)
             index -= 1
+        while index_2 > 8:
+            self.gridLayout_5.itemAt(index_2 - 1).widget().setParent(None)
+            index_2 -= 1
         self.validation_btn.setEnabled(False)
         self.calculate_btn.setEnabled(False)
         self.clear_btn.setEnabled(False)

@@ -14,6 +14,8 @@ from PyQt5.QtWidgets import QApplication
 from PyQt5.QtWidgets import QMainWindow
 from PyQt5.uic import loadUiType
 
+from timeit import default_timer as timer
+
 
 def resource_path(relative_path):
     base_path = getattr(sys, "_MEIPASS", os.path.dirname(os.path.abspath(__file__)))
@@ -43,6 +45,7 @@ class Main(QMainWindow, FORM_CLASS):
 
     def open_file(self):
         global df
+        stat_open = timer()
         try:
             file_name, _ = QtWidgets.QFileDialog.getOpenFileName(self, "Open File", "", "Excel (*.xlsx)")
             df = pd.read_excel(resource_path(file_name))
@@ -56,6 +59,8 @@ class Main(QMainWindow, FORM_CLASS):
             self.calculate_btn.setEnabled(False)
         except FileNotFoundError:
             pass
+        end_open = timer()
+        print(f'Opening file: {end_open-stat_open}')
 
     @staticmethod
     def format_time(time):
@@ -66,6 +71,7 @@ class Main(QMainWindow, FORM_CLASS):
     def validate_data(self):
         global new_df
         global sterile_hold_min_temp_list
+        start_validate = timer()
         self.clear_btn.setEnabled(False)
         sterile_hold_min_temp_list = []
         sterile_hold_end_temp_list = []
@@ -114,8 +120,11 @@ class Main(QMainWindow, FORM_CLASS):
 
         self.time_delta.setText(str(delta_time))
         self.calculate_btn.setEnabled(True)
+        end_validate = timer()
+        print(f'Validate data: {end_validate - start_validate}')
 
     def calculate_data(self):
+        start_calculate = timer()
         self.graphics_view.clear()
         self.clear_btn.setEnabled(True)
         colors = ['#FF0000', '#FF8000', '#FFFF00', '#80FF00', '#00FF00', '#00FF80', '#00FFFF', '#0080FF', '#0000FF',
@@ -204,8 +213,11 @@ class Main(QMainWindow, FORM_CLASS):
             self.protocol_labels[f'f0vr_{m}'].setAlignment(QtCore.Qt.AlignCenter)
             self.protocol_labels[f'f0vr_{m}'].setObjectName(f'f0vr_{m}')
             self.gridLayout_5.addWidget(self.protocol_labels[f"f0vr_{m}"], m, 7, 1, 1)
+        end_calculate = timer()
+        print(f'Calculate data: {end_calculate - start_calculate}')
 
     def clear_data(self):
+        start_clear = timer()
         self.termocouple_number.setText("")
         self.process_time.setText("")
         self.validation_label.setStyleSheet("")
@@ -227,6 +239,8 @@ class Main(QMainWindow, FORM_CLASS):
         self.validation_btn.setEnabled(False)
         self.calculate_btn.setEnabled(False)
         self.clear_btn.setEnabled(False)
+        end_clear = timer()
+        print(f'Clear data: {end_clear - start_clear}')
 
 
 def main():

@@ -135,18 +135,18 @@ class Main(QMainWindow, FORM_CLASS):
             for row in range(1, len(x_axis)):
                 f0 += 0.08333333 * (10 ** ((new_df.iloc[row][f'Temp_{column}'] - 121.0) / 6.0))
             f_list.append(f0)
-        col = row = 0
-        for n in range(1, len(f_list) + 1):
-            self.labels[f'label_{n}'] = QtWidgets.QLabel(self.partial_f0_box)
-            self.labels[f'label_{n}'].setStyleSheet(f'background-color: {colors[n - 1]};color : black;')
-            self.labels[f'label_{n}'].setText(f'[T{n}] F0={self.format_time(f_list[n - 1])}')
-            self.labels[f'label_{n}'].setAlignment(QtCore.Qt.AlignCenter)
-            self.labels[f'label_{n}'].setObjectName(f'label_{n}')
-            self.gridLayout.addWidget(self.labels[f"label_{n}"], col, row, 1, 1)
-            row += 1
-            if row == 4:
-                row = 0
-                col += 1
+        # col = row = 0
+        # for n in range(1, len(f_list) + 1):
+        #     self.labels[f'label_{n}'] = QtWidgets.QLabel(self.partial_f0_box)
+        #     self.labels[f'label_{n}'].setStyleSheet(f'background-color: {colors[n - 1]};color : black;')
+        #     self.labels[f'label_{n}'].setText(f'[T{n}] F0={self.format_time(f_list[n - 1])}')
+        #     self.labels[f'label_{n}'].setAlignment(QtCore.Qt.AlignCenter)
+        #     self.labels[f'label_{n}'].setObjectName(f'label_{n}')
+        #     self.gridLayout.addWidget(self.labels[f"label_{n}"], col, row, 1, 1)
+        #     row += 1
+        #     if row == 4:
+        #         row = 0
+        #         col += 1
         self.T_total.setText(f'F_average = {self.format_time(sum(f_list) / len(f_list))}')
         for m in range(1, len(f_list) + 1):
             self.protocol_labels[f'lc_{m}'] = QtWidgets.QLabel(self.validation_protocol_box)
@@ -172,14 +172,14 @@ class Main(QMainWindow, FORM_CLASS):
 
             self.protocol_labels[f't_min_{m}'] = QtWidgets.QLabel(self.validation_protocol_box)
             self.protocol_labels[f't_min_{m}'].setStyleSheet(f'background-color: {colors[m - 1]};color : black;')
-            self.protocol_labels[f't_min_{m}'].setText(f'{new_df[f"Temp_{m}"].min()}')
+            self.protocol_labels[f't_min_{m}'].setText(f'{round(new_df[f"Temp_{m}"].min(),2)}')
             self.protocol_labels[f't_min_{m}'].setAlignment(QtCore.Qt.AlignCenter)
             self.protocol_labels[f't_min_{m}'].setObjectName(f't_min_{m}')
             self.gridLayout_5.addWidget(self.protocol_labels[f"t_min_{m}"], m, 3, 1, 1)
 
             self.protocol_labels[f't_max_{m}'] = QtWidgets.QLabel(self.validation_protocol_box)
             self.protocol_labels[f't_max_{m}'].setStyleSheet(f'background-color: {colors[m - 1]};color : black;')
-            self.protocol_labels[f't_max_{m}'].setText(f'{new_df[f"Temp_{m}"].max()}')
+            self.protocol_labels[f't_max_{m}'].setText(f'{round(new_df[f"Temp_{m}"].max(),2)}')
             self.protocol_labels[f't_max_{m}'].setAlignment(QtCore.Qt.AlignCenter)
             self.protocol_labels[f't_max_{m}'].setObjectName(f't_max_{m}')
             self.gridLayout_5.addWidget(self.protocol_labels[f"t_max_{m}"], m, 4, 1, 1)
@@ -193,7 +193,7 @@ class Main(QMainWindow, FORM_CLASS):
 
             self.protocol_labels[f'f0v_{m}'] = QtWidgets.QLabel(self.validation_protocol_box)
             self.protocol_labels[f'f0v_{m}'].setStyleSheet(f'background-color: {colors[m - 1]};color : black;')
-            self.protocol_labels[f'f0v_{m}'].setText(f'f0v_{m}')
+            self.protocol_labels[f'f0v_{m}'].setText(f'{round(f_list[m - 1], 4)}')
             self.protocol_labels[f'f0v_{m}'].setAlignment(QtCore.Qt.AlignCenter)
             self.protocol_labels[f'f0v_{m}'].setObjectName(f'f0v_{m}')
             self.gridLayout_5.addWidget(self.protocol_labels[f"f0v_{m}"], m, 6, 1, 1)
@@ -216,11 +216,11 @@ class Main(QMainWindow, FORM_CLASS):
         self.table.setModel(None)
         self.T_total.setText("")
         self.graphics_view.clear()
-        index = self.gridLayout.count()
+        # index = self.gridLayout.count()
+        # while index > 0:
+        #     self.gridLayout.itemAt(index - 1).widget().setParent(None)
+        #     index -= 1
         index_2 = self.gridLayout_5.count()
-        while index > 0:
-            self.gridLayout.itemAt(index - 1).widget().setParent(None)
-            index -= 1
         while index_2 > 8:
             self.gridLayout_5.itemAt(index_2 - 1).widget().setParent(None)
             index_2 -= 1

@@ -119,6 +119,10 @@ class Main(QMainWindow, FORM_CLASS):
         self.graphics_view.clear()
         self.clear_btn.setEnabled(True)
         colors = ['#FF0000', '#FF8000', '#FFFF00', '#80FF00', '#00FF00', '#00FF80', '#00FFFF', '#0080FF', '#0000FF',
+                  '#7F00FF', '#FF00FF', '#FF007F', '#FF0000', '#FF8000', '#FFFF00', '#80FF00', '#00FF00', '#00FF80',
+                  '#00FFFF', '#0080FF', '#0000FF', '#7F00FF', '#FF00FF', '#FF007F', '#FF0000', '#FF8000', '#FFFF00',
+                  '#80FF00', '#00FF00', '#00FF80', '#00FFFF', '#0080FF', '#0000FF', '#7F00FF', '#FF00FF', '#FF007F',
+                  '#FF0000', '#FF8000', '#FFFF00', '#80FF00', '#00FF00', '#00FF80', '#00FFFF', '#0080FF', '#0000FF',
                   '#7F00FF', '#FF00FF', '#FF007F']
         x_axis = new_df['TIME'].index.tolist()
         self.graphics_view.getPlotItem().setLabel('bottom', "Time index")
